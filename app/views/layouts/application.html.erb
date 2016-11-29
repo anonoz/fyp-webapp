@@ -3,9 +3,12 @@
   <head>
     <title>Athena</title>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta property="og:title" content="[FYP] Athena" />
+    <meta property="og:url" content="https://fyp.anonoz.com/" />
+    <meta property="og:image" content="http://ia.media-imdb.com/images/rock.jpg" />
+    <meta property="og:description" content="Test drive sentiment analysis for fun." />
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
   </head>
 
   <body>

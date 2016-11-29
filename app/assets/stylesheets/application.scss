@@ -1,0 +1,173 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+body {
+  font-family: -apple-system, 'Segoe UI', sans-serif;
+}
+
+.hidden {
+  display: none;
+}
+
+.container {
+  width: 960px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  /*font-family: -apple-system, 'Segoe UI', sans-serif;*/
+}
+
+textarea[name="movie-review"] {
+  width: 100%;
+  height: 388px;
+  font-size: 24px;
+}
+
+a#random-review-link {
+  text-align: center;
+  text-decoration: none;
+  color: #666;
+}
+
+a#random-review-link:hover {
+  text-decoration: underline;
+}
+
+.sentiment-slider {
+  position: relative;
+  width:100%;
+  overflow: hidden;
+  height: 50px;
+}
+
+.sentiment-preload {
+  left: -100%;
+}
+
+.sentiment-current {
+  left: 0%;
+}
+
+.sentiment-exit {
+  left: 100%;
+}
+
+.sentiment-result {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  transition: 1s;
+}
+
+.sentiment-positive {
+  color: teal;
+}
+
+.sentiment-positive::before {
+  content: ";)";
+}
+
+.sentiment-negative {
+  color: maroon;
+}
+
+.sentiment-negative::before {
+  content: ":(";
+}
+
+.sentiment-technique {
+  color: gray;
+  text-align: center;
+}
+
+.feedback-box {
+  margin-top: 40px;
+  padding: 0px 45px;
+}
+
+.feedback-box p {
+  color: #444;
+}
+
+.separator {
+  width: 100%;
+  height: 2px;
+  background-color: #ddd;
+  margin: 20px 0px;
+}
+
+.performance-box {
+  text-align: center;
+  color: #666;
+}
+
+.performance-percent {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+/*
+*/
+footer *{
+  color: #888;
+  text-decoration: none;
+}
+
+/* Boilerplate 
+   column codes: https://www.sitepoint.com/understanding-css-grid-systems/
+*/
+.row, 
+.column {
+    box-sizing: border-box;
+}
+
+.row:before,
+.row:after {
+    content: " ";
+    display: table;
+}
+
+.row:after {
+    clear: both;
+}
+
+.column {
+    position: relative;
+    float: left;
+}
+
+.column + .column {
+    margin-left: 1.6%;
+}
+
+.column-3 {
+    width: 23.8%
+}
+
+.column-6 {
+    width: 49.2%;
+}
+
+.column-12 {
+    width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
