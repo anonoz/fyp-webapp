@@ -1,16 +1,24 @@
 var textbox, textbox_timeout;
 var flip = true;
 var imdb_movie_review_urls = [
-  "http://www.imdb.com/title/tt1375666/reviews", // Inception
-  "http://www.imdb.com/title/tt0114709/reviews", //Toystory
-  "http://www.imdb.com/title/tt2788710/reviews", // The Interview
-  "http://www.imdb.com/title/tt1398426/reviews", // Straight Outta Compton
+  "https://www.rottentomatoes.com/m/fantastic_beasts_and_where_to_find_them/#contentReviews",
+  "https://www.rottentomatoes.com/m/doctor_strange_2016#contentReviews",
+  "https://www.rottentomatoes.com/m/matrix#contentReviews",
+  "https://www.rottentomatoes.com/m/kubo_and_the_two_strings_2016#contentReviews",
+  "https://www.rottentomatoes.com/tv/mr_robot/s01/#contentReviews",
+  "https://www.rottentomatoes.com/m/suicide_squad_2016#contentReviews",
+  "https://www.rottentomatoes.com/m/finding_dory#contentReviews",
+  "https://www.rottentomatoes.com/m/gone_girl#contentReviews",
+  "https://www.rottentomatoes.com/m/phantom_of_the_opera#contentReviews",
+  "https://www.rottentomatoes.com/m/nerve_2016#contentReviews",
+  "https://www.rottentomatoes.com/m/the_hunger_games_catching_fire#contentReviews",
+  "https://www.rottentomatoes.com/m/john_wick#contentReviews"
 ];
 var textbox_placeholder_movie_titles = [
   "Kung Fu Hustle", "Inception", "Titanic", "Avatar",
   "Star Wars VII: The Force Awakens", "Finding Nemo",
   "Toy Story", "The Internship", "Captain America: Civil War",
-  "Batman v Superman: Dawn of Justice", "Saving Pvt Ryan"
+  "Batman v Superman: Dawn of Justice", "Saving Private Ryan"
 ]
 
 window.onload = function(){
@@ -20,60 +28,22 @@ window.onload = function(){
   random_review_link = document.getElementById('random-review-link');
 
   // Placeholder
-  textbox.setAttribute('placeholder',
-    'What do you think about the movie '+ 
-    textbox_placeholder_movie_titles[Math.floor(Math.random()*textbox_placeholder_movie_titles.length)] +
-    '?');
+  textbox.setAttribute('placeholder', 'Type a movie review here, or click the link below the textbox to copy & paste');
 
   // When user stops typing in the textarea for 400ms, 
   // then fire an AJAX
   textbox.oninput = function(e){
     if (this.value == '') {return;}
+    var review_text = this.value;
     clearTimeout(textbox_timeout);
     textbox_timeout = setTimeout(function(){
-
-      // Do the sentiment card sliding
-      var sentiment_result = document.createElement('div');
-      sentiment_result.setAttribute("class", "sentiment-result sentiment-preload " + (flip ? "sentiment-positive":"sentiment-negative"));
-      var sentiment_sliders = document.getElementsByClassName('sentiment-slider');
-      
-      for (var i in sentiment_sliders) {
-        if (!sentiment_sliders.hasOwnProperty(i)) {break;}
-        (function(){
-          var slider_div = sentiment_sliders[i];
-          var old_sentiment = slider_div.getElementsByClassName('sentiment-current')[0];
-          var new_sentiment = sentiment_result.cloneNode(true);
-
-          // Delete .sentiment-exit after it exits from viewport
-          old_sentiment.addEventListener('transitionend', function(e){
-            this.parentNode.removeChild(this);
-          });
-
-          // Prepend .sentiment-preload
-          slider_div.insertBefore(new_sentiment, old_sentiment);
-
-          setTimeout(function(){ 
-            new_sentiment.classList.remove('sentiment-preload');
-            new_sentiment.classList.add('sentiment-current');
-          }, 16);
-
-          // Change .current to .exit and .preload to .current
-          if (old_sentiment.classList.contains('sentiment-current')) {
-            old_sentiment.classList.remove('sentiment-current');
-            old_sentiment.classList.add('sentiment-exit');
+      predict_sentiment(review_text, function(sentiments){
+        for (var classifier_name in sentiments) {
+          if (sentiments.hasOwnProperty(classifier_name)) {
+            update_sentiment_result_box(classifier_name, sentiments[classifier_name].polarity);
           }
-        })();
-      }
-
-      flip = !flip;
-
-      // Reset feedback box
-      document.
-        getElementsByClassName('feedback-given')[0].
-        classList.add('hidden');
-      document.
-        getElementsByClassName('feedback-pending')[0].
-        classList.remove('hidden');
+        }
+      });
     }, 600);
   };
 
@@ -97,3 +67,50 @@ window.onload = function(){
     return false;
   }
 };
+
+function predict_sentiment(review, callback){
+  var xhr = new XMLHttpRequest();
+  var url = "/predict";
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json");
+  xhr.onreadystatechange = function(){
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      var sentiments = JSON.parse(xhr.responseText);
+      callback && callback(sentiments);
+    }
+  }
+  var request_body = JSON.stringify({"review": review});
+  xhr.send(request_body);
+}
+
+function update_sentiment_result_box(classifier_name, polarity) {
+  // Do the sentiment card sliding
+  var sentiment_result = document.createElement('div');
+  sentiment_result.setAttribute("class", "sentiment-result sentiment-preload " + (polarity == 'positive' ? "sentiment-positive":"sentiment-negative"));
+  var sentiment_slider = document.querySelectorAll('[data-slider-classifier="' + classifier_name + '"]')[0];
+
+  (function(){
+    var slider_div = sentiment_slider;
+    var old_sentiment = slider_div.getElementsByClassName('sentiment-current')[0];
+    var new_sentiment = sentiment_result.cloneNode(true);
+
+    // Delete .sentiment-exit after it exits from viewport
+    old_sentiment.addEventListener('transitionend', function(e){
+      this.parentNode.removeChild(this);
+    });
+
+    // Prepend .sentiment-preload
+    slider_div.insertBefore(new_sentiment, old_sentiment);
+
+    setTimeout(function(){ 
+      new_sentiment.classList.remove('sentiment-preload');
+      new_sentiment.classList.add('sentiment-current');
+    }, 16);
+
+    // Change .current to .exit and .preload to .current
+    if (old_sentiment.classList.contains('sentiment-current')) {
+      old_sentiment.classList.remove('sentiment-current');
+      old_sentiment.classList.add('sentiment-exit');
+    }
+  })();
+}

@@ -14,7 +14,7 @@
       <div class="review-result column column-6">
         <div class="row">
           <div class="column column-6">
-            <div class="sentiment-slider">
+            <div class="sentiment-slider" id="genji-slider" data-slider-classifier="genji">
               <!-- <div class="sentiment-result sentiment-negative sentiment-preload">
                 -ve
               </div> -->
@@ -22,11 +22,11 @@
               </div>
             </div>
             <div class="sentiment-technique">
-              ConvNet
+              Genji
             </div>
           </div>
           <div class="column column-6">
-            <div class="sentiment-slider">
+            <div class="sentiment-slider" id="hanzo-slider" data-slider-classifier="hanzo">
               <!-- <div class="sentiment-result sentiment-negative sentiment-preload">
                 -ve
               </div> -->
@@ -34,11 +34,11 @@
               </div>
             </div>
             <div class="sentiment-technique">
-              Random Forest
+              Hanzo
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row hidden">
           <div class="column column-6">
             <div class="sentiment-slider">
               <!-- <div class="sentiment-result sentiment-negative sentiment-preload">
