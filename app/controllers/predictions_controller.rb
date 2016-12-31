@@ -1,8 +1,9 @@
 class PredictionsController < ApplicationController
   def create
-    results = {}
-    results["genji"] = Genji.predict(params[:review])
-    results["hanzo"] = Hanzo.predict(params[:review])
-    render json: results
+    SentimentPredictionJob.perform_later({
+      classifier: 'genji',
+      review_text: params[:review],
+      user_id: current_user_id
+    })
   end
 end

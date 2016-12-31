@@ -1,5 +1,4 @@
 var textbox, textbox_timeout;
-var flip = true;
 var imdb_movie_review_urls = [
   "https://www.rottentomatoes.com/m/fantastic_beasts_and_where_to_find_them/#contentReviews",
   "https://www.rottentomatoes.com/m/doctor_strange_2016#contentReviews",
