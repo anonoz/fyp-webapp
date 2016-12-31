@@ -82,10 +82,10 @@ function predict_sentiment(review, callback){
   xhr.send(request_body);
 }
 
-function update_sentiment_result_box(classifier_name, polarity) {
+function update_sentiment_result_box(classifier_name, polarity, is_offline) {
   // Do the sentiment card sliding
   var sentiment_result = document.createElement('div');
-  sentiment_result.setAttribute("class", "sentiment-result sentiment-preload " + (polarity == 'positive' ? "sentiment-positive":"sentiment-negative"));
+  sentiment_result.setAttribute("class", "sentiment-result sentiment-preload sentiment-" + polarity);
   var sentiment_slider = document.querySelectorAll('[data-slider-classifier="' + classifier_name + '"]')[0];
 
   (function(){

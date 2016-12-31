@@ -91,6 +91,14 @@ a#random-review-link:hover {
   content: ":(";
 }
 
+.sentiment-offline {
+  color: gray;
+}
+
+.sentiment-offline::before {
+  content: "OFFLINE";
+}
+
 .sentiment-technique {
   color: gray;
   text-align: center;

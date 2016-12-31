@@ -17,8 +17,12 @@ gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+# Job queueing
+gem 'sidekiq'
+
 gem "figaro"
 gem "httparty"
+gem "foreman"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
