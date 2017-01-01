@@ -4,7 +4,7 @@ App.sentiment_prediction = App.cable.subscriptions.create "SentimentPredictionCh
 
   disconnected: ->
     # Called when the subscription has been terminated by the server
-    alert("Your WebSocket connected is gone. Try to reload the page.")
+    alert("Your WebSocket connection is gone. Try to reload the page.")
 
   received: (data) ->
     # Called when there's incoming data on the websocket for this channel
