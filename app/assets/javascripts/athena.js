@@ -29,10 +29,25 @@ window.onload = function(){
   // Placeholder
   textbox.setAttribute('placeholder', 'Type a movie review here, or click the link below the textbox to copy & paste');
 
+  // Change the symbol to loading icon as soon as user types
+  //
   // When user stops typing in the textarea for 400ms, 
-  // then fire an AJAX
+  // then fire an AJAX request
+  //
   textbox.oninput = function(e){
-    if (this.value == '') {return;}
+    if (this.value == '') {
+      for (var classifier_name of ['genji', 'hanzo']) {
+        update_sentiment_result_box(classifier_name, 'nothing', false);
+      }
+      return;
+    } else {
+      for (var classifier_name of ['genji', 'hanzo']) {
+        if (!document.querySelectorAll('[data-slider-classifier="' + classifier_name + '"] .sentiment-result')[0].className.match('sentiment-loading')) {
+          update_sentiment_result_box(classifier_name, 'loading', false);
+        }
+      }
+    }
+
     var review_text = this.value;
     clearTimeout(textbox_timeout);
     textbox_timeout = setTimeout(function(){
@@ -61,7 +76,7 @@ window.onload = function(){
 
   // Gimme random movie reviews
   random_review_link.onclick = function(e){
-    var url = imdb_movie_review_urls[Math.floor(Math.random()*imdb_movie_review_urls.length)];
+    var url = imdb_movie_review_urls[Math.floor(Math.random() * imdb_movie_review_urls.length)];
     window.open(url);
     return false;
   }
