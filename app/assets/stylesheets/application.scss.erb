@@ -1,20 +1,8 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
 body {
-  font-family: -apple-system, 'Segoe UI', sans-serif;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 .hidden {
@@ -28,7 +16,6 @@ body {
 
 h1 {
   text-align: center;
-  /*font-family: -apple-system, 'Segoe UI', sans-serif;*/
 }
 
 textarea[name="movie-review"] {
@@ -75,28 +62,44 @@ a#random-review-link:hover {
   transition: 1s;
 }
 
-.sentiment-positive {
-  color: teal;
+.sentiment-nothing {
+  color: gray;
+
+  &::before {
+    content: "WAITING";
+  }
 }
 
-.sentiment-positive::before {
-  content: ";)";
+.sentiment-loading {
+  color: red;
+  background-image: url("<%= asset_path 'loading-icon.svg' %>");
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 100%;
+}
+
+.sentiment-positive {
+  color: teal;
+
+  &::before {
+    content: "GOOD";
+  }
 }
 
 .sentiment-negative {
   color: maroon;
-}
 
-.sentiment-negative::before {
-  content: ":(";
+  &::before {
+    content: "BAD";
+  }
 }
 
 .sentiment-offline {
   color: gray;
-}
 
-.sentiment-offline::before {
-  content: "OFFLINE";
+  &::before {
+    content: "OFFLINE";
+  }
 }
 
 .sentiment-technique {
