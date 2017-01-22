@@ -18,3 +18,4 @@
 
 # Secrets
 config/application.yml
+dump.rdb

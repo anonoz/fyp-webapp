@@ -1,14 +1,21 @@
 <div class="jumbotron">
   <h1>Sentiment Analysis Demo</h1>
-  <p class="text-center">
-    Let the computer analyze your movie review and tell you what you are thinking.
-  </p>
+  <div class="container">
+    <p class="text-center">
+      Sentiment Analysis can tell if one is happy or not from a body of text. Here, you can try it out by expressing your opinion about a movie you just watched.
+    </p>
+    <p class="text-center">
+      What do you think about the movie Arrival?
+    </p>
+  </div>
 </div>
 <div class="container">
     <div class="row">
       <div class="review-input col-xs-6">  
         <textarea class="form-control" id="movie-review-input" name="movie-review"></textarea>
-        <a href="#" id="random-review-link">Show me something to copy &amp; paste to try this out</a>
+        <p>
+          <a href="#" class="btn btn-primary btn-wide" id="random-review-link">Can't think of anything? Press me.</a>
+        </p>
       </div>
       <div class="review-result col-xs-6">
         <div class="row">
