@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161231022046) do
+ActiveRecord::Schema.define(version: 20170122174308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,22 @@ ActiveRecord::Schema.define(version: 20161231022046) do
     t.integer  "polarity",    default: 0
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+  end
+
+  create_table "prediction_results", force: :cascade do |t|
+    t.integer  "sentiment_query_id"
+    t.integer  "classifier_id"
+    t.integer  "polarity"
+    t.float    "confidence"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  create_table "sentiment_queries", force: :cascade do |t|
+    t.text     "review_text"
+    t.integer  "ground_truth"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
 end

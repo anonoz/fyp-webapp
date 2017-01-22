@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sentiment_query_id: 1
+  classifier_id: 1
+  polarity: 1
+  confidence: 1.5
+
+two:
+  sentiment_query_id: 1
+  classifier_id: 1
+  polarity: 1
+  confidence: 1.5
