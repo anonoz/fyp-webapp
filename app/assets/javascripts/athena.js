@@ -36,12 +36,12 @@ window.onload = function(){
   //
   textbox.oninput = function(e){
     if (this.value == '') {
-      for (var classifier_name of ['genji', 'hanzo']) {
+      for (var classifier_name of ['genji', 'hanzo', 'lstmclassifier']) {
         update_sentiment_result_box(classifier_name, 'nothing', false);
       }
       return;
     } else {
-      for (var classifier_name of ['genji', 'hanzo']) {
+      for (var classifier_name of ['genji', 'hanzo', 'lstmclassifier']) {
         if (!document.querySelectorAll('[data-slider-classifier="' + classifier_name + '"] .sentiment-result')[0].className.match('sentiment-loading')) {
           update_sentiment_result_box(classifier_name, 'loading', false);
         }

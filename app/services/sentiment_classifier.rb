@@ -1,7 +1,7 @@
 class SentimentClassifier
   include HTTParty
 
-  CLASSIFIERS = ['hanzo', 'genji']
+  CLASSIFIERS = ['hanzo', 'genji', 'lstmclassifier']
   
   def self.predict(review)
     begin
