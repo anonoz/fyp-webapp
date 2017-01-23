@@ -1,9 +1,11 @@
 class PredictionsController < ApplicationController
   def create
-    ['genji', 'hanzo'].each do |classifier_name|
+    query = SentimentQuery.create(review_text: params[:review])
+    
+    SentimentClassifier::CLASSIFIERS.each do |classifier_name|
       SentimentPredictionJob.perform_later({
         classifier: classifier_name,
-        review_text: params[:review],
+        query_id: query.id,
         user_id: current_user_id
       })
     end

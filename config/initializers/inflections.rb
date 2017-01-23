@@ -15,4 +15,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym 'RESTful'
   inflect.acronym 'LSTMClassifier'
   inflect.acronym 'GRUClassifier'
+  inflect.acronym 'SVM'
+  inflect.acronym 'RNN'
+  inflect.acronym 'FFNN'
 end

@@ -1,10 +1,19 @@
 class SentimentPredictionJob < ApplicationJob
   queue_as :default
 
-  def perform(user_id:, classifier:, review_text:)
+  def perform(user_id:, classifier:, query_id:)
     begin
-      results = classifier.capitalize.constantize.predict(review_text)
-      review_text_hash = Digest::MD5.hexdigest(review_text)[0..5]
+      query = SentimentQuery.find(query_id)
+      review_text_hash = Digest::MD5.hexdigest(query.review_text)[0..5]
+      results = classifier.camelize.constantize.predict(query.review_text)
+
+      PredictionResult.create({
+        sentiment_query_id: query_id,
+        classifier_id: classifier,
+        polarity: (results['polarity'] == 'positive' ? 1 : -1),
+        confidence: results['score'].max
+      })
+      
       ActionCable.server.broadcast("sentiment_prediction_for_#{ user_id }", {
         classifier: classifier,
         status: :ok,
