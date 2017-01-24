@@ -1,4 +1,5 @@
-var textbox, textbox_timeout;
+var textbox, textbox_timeout, current_review_hash, returned_count;
+var classifiers = [];
 var imdb_movie_review_urls = [
   "https://www.rottentomatoes.com/m/fantastic_beasts_and_where_to_find_them/#contentReviews",
   "https://www.rottentomatoes.com/m/doctor_strange_2016#contentReviews",
@@ -29,35 +30,37 @@ window.onload = function(){
   // Placeholder
   textbox.setAttribute('placeholder', 'Type a movie review here, or click the link below the textbox to copy & paste');
 
+  // Find classifiers
+  for (slider_classifier of document.querySelectorAll('[data-slider-classifier]')) {
+    classifiers.push(slider_classifier.getAttribute('data-slider-classifier'));
+  }
+
   // Change the symbol to loading icon as soon as user types
   //
   // When user stops typing in the textarea for 400ms, 
   // then fire an AJAX request
   //
   textbox.oninput = function(e){
+    var review_text = this.value;
+    returned_count = 0;
+    current_review_hash = md5(review_text).slice(0, 6);
+
     if (this.value == '') {
-      for (var classifier_name of ['genji', 'hanzo', 'lstmclassifier']) {
+      for (var classifier_name of classifiers) {
         update_sentiment_result_box(classifier_name, 'nothing', false);
       }
       return;
     } else {
-      for (var classifier_name of ['genji', 'hanzo', 'lstmclassifier']) {
+      for (var classifier_name of classifiers) {
         if (!document.querySelectorAll('[data-slider-classifier="' + classifier_name + '"] .sentiment-result')[0].className.match('sentiment-loading')) {
           update_sentiment_result_box(classifier_name, 'loading', false);
         }
       }
     }
 
-    var review_text = this.value;
     clearTimeout(textbox_timeout);
     textbox_timeout = setTimeout(function(){
-      predict_sentiment(review_text, function(sentiments){
-        for (var classifier_name in sentiments) {
-          if (sentiments.hasOwnProperty(classifier_name)) {
-            update_sentiment_result_box(classifier_name, sentiments[classifier_name].polarity);
-          }
-        }
-      });
+      predict_sentiment(review_text);
     }, 600);
   };
 
@@ -95,9 +98,11 @@ function predict_sentiment(review, callback){
   }
   var request_body = JSON.stringify({"review": review});
   xhr.send(request_body);
+  current_review_hash = md5(review).slice(0, 6);
 }
 
-function update_sentiment_result_box(classifier_name, polarity, is_offline) {
+function update_sentiment_result_box(classifier_name, polarity, review_hash) {
+  if (classifier_name == null) {return;}
   // Do the sentiment card sliding
   var sentiment_result = document.createElement('div');
   sentiment_result.setAttribute("class", "sentiment-result sentiment-preload sentiment-" + polarity);

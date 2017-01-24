@@ -8,7 +8,9 @@ App.sentiment_prediction = App.cable.subscriptions.create "SentimentPredictionCh
 
   received: (data) ->
     # Called when there's incoming data on the websocket for this channel
-    if data.status is 'ok'
-      update_sentiment_result_box(data.classifier, data.results.polarity)
+    if data.status == 'ok'
+      if data.review_text_hash == current_review_hash
+        returned_count++
+        update_sentiment_result_box(data.classifier, data.results.polarity)
     else
       update_sentiment_result_box(data.classifier, 'offline')

@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require cable
+//= require md5.min
 //= require athena
 //= require channels/sentiment_prediction
 //= require_tree .
