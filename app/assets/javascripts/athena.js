@@ -146,7 +146,7 @@ function update_sentiment_result_box(classifier_name, polarity, review_hash) {
     }
   })();
 
-  if (review_hash != null) {
+  if (polarity != 'loading' && polarity != 'nothing') {
     returned_count++;
   }
 
