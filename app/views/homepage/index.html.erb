@@ -1,21 +1,19 @@
-<div class="jumbotron">
-  <h1>Sentiment Analysis Demo</h1>
-  <div class="container">
-    <p class="text-center">
-      Sentiment Analysis can tell if one is happy or not from a body of text. Here, you can try it out by expressing your opinion about a movie you just watched.
-    </p>
-    <p class="text-center">
-      What do you think about the movie Arrival?
-    </p>
-  </div>
-</div>
+<%= render 'jumbotron' %>
 <div class="container">
     <div class="row">
-      <div class="review-input col-xs-6">  
-        <textarea class="form-control" id="movie-review-input" name="movie-review"></textarea>
-        <p>
-          <a href="#" class="btn btn-primary btn-wide" id="random-review-link">Can't think of anything? Press me.</a>
-        </p>
+      <div class="review-input col-xs-6">
+        <div class="row">
+          <div class="col-xs-12">
+            <textarea class="form-control" id="movie-review-input" name="movie-review"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <p>
+              <a href="#" class="btn btn-primary btn-block" id="random-review-link">Can't think of anything? Press me.</a>
+            </p>
+          </div>
+        </div>
       </div>
       <div class="review-result col-xs-6">
         <div class="row">
@@ -48,11 +46,8 @@
               LSTM
             </div>
           </div>
-          <div class="column column-6 hidden">
-            <div class="sentiment-slider">
-              <!-- <div class="sentiment-result sentiment-negative sentiment-preload">
-                -ve
-              </div> -->
+          <div class="column column-6">
+            <div class="sentiment-slider" id="svmclassifier-slider" data-slider-classifier="svmclassifier">
               <div class="sentiment-result sentiment-nothing sentiment-current">
               </div>
             </div>
@@ -61,17 +56,18 @@
             </div>
           </div>
         </div>
-        <div class="row feedback-box feedback-pending">
+        <div class="row feedback-box feedback-pending hidden">
           <div class="column-12">
-            <h3 class="text-center">This movie actually...</h3>
+            <h3 class="text-center">This movie is actually...</h3>
             <div class="row">
               <div class="col-xs-6">
-                <a href="#" class="btn btn-default btn-block btn-success">Rocks</a>
+                <a href="#" class="btn btn-default btn-block btn-success feedback-button" data-ground-truth="1">Good</a>
               </div>
               <div class="col-xs-6">
-                <a href="#" class="btn btn-default btn-block btn-danger">Sucks</a>
+                <a href="#" class="btn btn-default btn-block btn-danger feedback-button" data-ground-truth="-1">Bad</a>
               </div>
             </div>
+            <p class="text-center">Thanks for giving me more data to analyze.</p>
           </div>
         </div>
         <div class="row feedback-box feedback-given hidden">
@@ -128,9 +124,10 @@
         </tr>
       </table>
     </div> -->
-    <footer class="text-center">
-      <p>
-        <a href="http://www.anonoz.com">FYP of Anonoz</a>
-      </p>
-    </footer>
+    
 </div>
+<footer class="text-center">
+  <p>
+    <a href="http://www.anonoz.com">FYP of Anonoz</a>
+  </p>
+</footer>

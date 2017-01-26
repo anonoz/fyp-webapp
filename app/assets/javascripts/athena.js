@@ -1,4 +1,4 @@
-var textbox, textbox_timeout, current_review_hash, returned_count;
+var textbox, textbox_timeout, current_review_hash, curent_query_id, returned_count;
 var classifiers = [];
 var imdb_movie_review_urls = [
   "https://www.rottentomatoes.com/m/fantastic_beasts_and_where_to_find_them/#contentReviews",
@@ -47,20 +47,22 @@ window.onload = function(){
 
     if (this.value == '') {
       for (var classifier_name of classifiers) {
-        update_sentiment_result_box(classifier_name, 'nothing', false);
+        update_sentiment_result_box(classifier_name, 'nothing');
       }
       return;
     } else {
       for (var classifier_name of classifiers) {
         if (!document.querySelectorAll('[data-slider-classifier="' + classifier_name + '"] .sentiment-result')[0].className.match('sentiment-loading')) {
-          update_sentiment_result_box(classifier_name, 'loading', false);
+          update_sentiment_result_box(classifier_name, 'loading');
         }
       }
     }
 
     clearTimeout(textbox_timeout);
     textbox_timeout = setTimeout(function(){
-      predict_sentiment(review_text);
+      predict_sentiment(review_text, function(query) {
+        current_query_id = query.id;
+      });
     }, 600);
   };
 
@@ -73,6 +75,17 @@ window.onload = function(){
       document.
         getElementsByClassName('feedback-given')[0].
         classList.remove('hidden');
+
+      // POST ground truth
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "/corrections", true);
+      xhr.setRequestHeader("Content-type", "application/json");
+      var request_body = JSON.stringify({
+        query_id: current_query_id,
+        ground_truth: this.getAttribute('data-ground-truth')
+      });
+      xhr.send(request_body);
+
       return false;
     }
   }}
@@ -92,8 +105,8 @@ function predict_sentiment(review, callback){
   xhr.setRequestHeader("Content-type", "application/json");
   xhr.onreadystatechange = function(){
     if (xhr.readyState == 4 && xhr.status == 200) {
-      var sentiments = JSON.parse(xhr.responseText);
-      callback && callback(sentiments);
+      var query = JSON.parse(xhr.responseText);
+      callback && callback(query);
     }
   }
   var request_body = JSON.stringify({"review": review});
@@ -132,4 +145,25 @@ function update_sentiment_result_box(classifier_name, polarity, review_hash) {
       old_sentiment.classList.add('sentiment-exit');
     }
   })();
+
+  if (review_hash != null) {
+    returned_count++;
+  }
+
+  // Show ground truth reporting box
+  if (returned_count == classifiers.length) {
+    document.
+      getElementsByClassName('feedback-pending')[0].
+      classList.remove('hidden');
+    document.
+      getElementsByClassName('feedback-given')[0].
+      classList.add('hidden');
+  } else {
+    document.
+      getElementsByClassName('feedback-pending')[0].
+      classList.add('hidden');
+    document.
+      getElementsByClassName('feedback-given')[0].
+      classList.add('hidden');
+  }
 }

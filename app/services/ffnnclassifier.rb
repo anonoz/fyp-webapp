@@ -1,0 +1,2 @@
+class FFNNClassifier < SentimentClassifier
+end
