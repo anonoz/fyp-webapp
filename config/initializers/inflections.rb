@@ -17,5 +17,6 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym 'GRUClassifier'
   inflect.acronym 'SVMClassifier'
   inflect.acronym 'RNN'
-  inflect.acronym 'FFNN'
+  inflect.acronym 'FFNNClassifier'
+  inflect.acronym 'RFClassifier'
 end

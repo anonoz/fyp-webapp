@@ -18,6 +18,24 @@
       <div class="review-result col-xs-6">
         <div class="row">
           <div class="col-xs-6">
+            <div class="sentiment-slider" id="lstmclassifier-slider" data-slider-classifier="lstmclassifier">
+              <div class="sentiment-result sentiment-nothing sentiment-current">
+              </div>
+            </div>
+            <div class="sentiment-technique">
+              RNN (Long short-term memory)
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="sentiment-slider" id="gruclassifier-slider" data-slider-classifier="gruclassifier">
+              <div class="sentiment-result sentiment-nothing sentiment-current">
+              </div>
+            </div>
+            <div class="sentiment-technique">
+              RNN (GRU)
+            </div>
+          </div>
+          <div class="col-xs-6">
             <div class="sentiment-slider" id="genji-slider" data-slider-classifier="genji">
               <div class="sentiment-result sentiment-nothing sentiment-current">
               </div>
@@ -35,18 +53,25 @@
               Hanzo
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="column column-6">
-            <div class="sentiment-slider" id="lstmclassifier-slider" data-slider-classifier="lstmclassifier">
+          <div class="col-xs-6">
+            <div class="sentiment-slider" id="ffnnclassifier-slider" data-slider-classifier="ffnnclassifier">
               <div class="sentiment-result sentiment-nothing sentiment-current">
               </div>
             </div>
             <div class="sentiment-technique">
-              LSTM
+              FFNN
             </div>
           </div>
-          <div class="column column-6">
+          <div class="col-xs-6">
+            <div class="sentiment-slider" id="rfclassifier-slider" data-slider-classifier="rfclassifier">
+              <div class="sentiment-result sentiment-nothing sentiment-current">
+              </div>
+            </div>
+            <div class="sentiment-technique">
+              Random Forest
+            </div>
+          </div>
+          <div class="col-xs-6">
             <div class="sentiment-slider" id="svmclassifier-slider" data-slider-classifier="svmclassifier">
               <div class="sentiment-result sentiment-nothing sentiment-current">
               </div>
