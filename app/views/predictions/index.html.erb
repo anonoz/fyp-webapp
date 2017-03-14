@@ -1,0 +1,41 @@
+<div class="jumbotron">
+  <div class="container">
+    <h1>Interesting...</h1>
+  </div>
+</div>
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th class="col-xs-4">Review</th>
+        <th class="col-xs-1">Ground Truth</th>
+        <th class="col-xs-1">RNN (LSTM)</th>
+        <th class="col-xs-1">RNN (GRU)</th>
+        <th class="col-xs-1">CNN (GoogleNews)</th>
+        <th class="col-xs-1">CNN (IMDb skip-gram)</th>
+        <th class="col-xs-1">FFNN</th>
+        <th class="col-xs-1">SVM</th>
+        <th class="col-xs-1">RF</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @queries.each do |query| %>
+      <tr>
+        <td><%= query.review_text %></td>
+        <td>
+          <% if query.ground_truth.present? %>
+          <div class="sentiment-<%= query.ground_truth > 0 ? 'positive' : 'negative' %>"></div>
+          <% end %>
+        </td>
+        <% SentimentClassifier::CLASSIFIERS.each do |classifier_id| %>
+        <td>
+          <% if result = query.prediction_results.where(classifier_id: classifier_id).first %>
+          <div class="sentiment-<%= result.polarity > 0 ? 'positive' : 'negative' %>"></div>
+          <% end %>
+        </td>
+        <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

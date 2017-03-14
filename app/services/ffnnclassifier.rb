@@ -1,3 +1,4 @@
 class FFNNClassifier < SentimentClassifier
-  base_uri ENV['FFNN_URL'] || 'http://localhost:5014'
+  CLASSIFIER_TYPE = 'ffnn'
+  base_uri ENV['FFNN_URL'] || 'http://localhost:6002'
 end

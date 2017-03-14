@@ -1,3 +1,4 @@
 class SVMClassifier < SentimentClassifier
-  base_uri ENV['SVM_URL'] || 'http://localhost:5015'
+  CLASSIFIER_TYPE = 'svm'
+  base_uri ENV['SVM_URL'] || 'http://localhost:6002'
 end

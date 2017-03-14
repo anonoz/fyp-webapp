@@ -1,4 +1,4 @@
-GENJI_URL: https://genji.fyp.anonoz.com
-HANZO_URL: https://hanzo.fyp.anonoz.com
-LSTM_URL:  http://localhost:5013
+# GENJI_URL: https://genji.fyp.anonoz.com
+# HANZO_URL: https://hanzo.fyp.anonoz.com
+# LSTM_URL:  http://localhost:5013
 SECRET_KEY_BASE: whatever123

@@ -1,11 +1,15 @@
 class SentimentClassifier
   include HTTParty
 
-  CLASSIFIERS = ['hanzo', 'genji', 'lstmclassifier', 'svmclassifier', 'rfclassifier', 'ffnnclassifier']
+  CLASSIFIERS = ['lstmclassifier', 'gruclassifier', 'genji', 'hanzo', 'ffnnclassifier', 'svmclassifier', 'rfclassifier']
   
   def self.predict(review)
     begin
-      response = self.post('/predict', {body: {review: review}.to_json})
+      request_body = {
+        classifier: self::CLASSIFIER_TYPE,
+        review: review
+      }.to_json
+      response = self.post('/predict', {body: request_body})
       if response.code == 200
         return response.parsed_response
       elsif response.code == 502
