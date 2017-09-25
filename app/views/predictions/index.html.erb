@@ -27,9 +27,10 @@
           <div class="sentiment-<%= query.ground_truth > 0 ? 'positive' : 'negative' %>"></div>
           <% end %>
         </td>
+        <% prediction_results = query.prediction_results.to_a %>
         <% SentimentClassifier::CLASSIFIERS.each do |classifier_id| %>
         <td>
-          <% if result = query.prediction_results.where(classifier_id: classifier_id).first %>
+          <% if result = prediction_results.select { |r| r.classifier_id == classifier_id }.first %>
           <div class="sentiment-<%= result.polarity > 0 ? 'positive' : 'negative' %>"></div>
           <% end %>
         </td>
