@@ -19,7 +19,11 @@ I have already pushed the dependency images to Docker Hub. If you have Docker En
 ```
 # WARNING: You are about to download 1-2GBs of Docker images. Do not run this on slow or metered internet connections!
 
+# Run these once (or everytime you git pull this codebase)
 $ docker-compose build
+$ docker-compose run web bundle exec rails db:migrate
+
+# Then run this everytime you wanna play with it
 $ docker-compose up
 
 # Visit http://localhost:3001

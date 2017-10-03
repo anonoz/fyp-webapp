@@ -223,7 +223,6 @@ DEPENDENCIES
   sidekiq
   spring
   spring-watcher-listen (~> 2.0.0)
-  tzinfo-data
   uglifier (~> 3.2.0)
   web-console
 
