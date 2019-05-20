@@ -1,4 +1,4 @@
-FROM ruby:2.4.1
+FROM ruby:2.6.3
 MAINTAINER Anonoz <honsiongchs+github@gmail.com>
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs libgmp3-dev
 RUN mkdir /app

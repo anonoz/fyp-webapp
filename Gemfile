@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
-ruby '2.4.1'
+ruby '2.6.3'
 
 # Essentials
-gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+gem 'rails', '~> 5.2.0'
 gem 'pg', '~> 0.18'
 gem 'redis', '~> 3.0'
 gem 'puma', '~> 3.0'
