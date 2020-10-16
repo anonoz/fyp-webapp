@@ -1,4 +1,4 @@
-FROM ruby:2.4.1
+FROM ruby:2.6.3
 MAINTAINER Anonoz <honsiongchs@gmail.com>
 RUN mkdir -p /app
 WORKDIR /app
@@ -8,7 +8,7 @@ ENV RAILS_ENV production
 
 COPY Gemfile Gemfile.lock ./
 RUN gem install bundler
-RUN bundle install -j 12 --without development test
+RUN bundle install -j 4 --without development test
 
 COPY . /app
 RUN bundle exec rails assets:precompile
