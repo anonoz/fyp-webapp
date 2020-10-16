@@ -3,7 +3,7 @@ ruby '2.6.3'
 
 # Essentials
 gem 'rails', '~> 5.2.0'
-gem 'pg', '~> 0.18'
+gem 'pg'
 gem 'redis', '~> 3.0'
 gem 'puma', '~> 3.0'
 gem 'sidekiq'
