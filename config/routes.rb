@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   post 'predict' => 'predictions#create'
   get  'corrections' => 'corrections#index'
   post 'corrections' => 'corrections#create'
+
+  get 'healthz' => 'healthcheck#index'
 end
