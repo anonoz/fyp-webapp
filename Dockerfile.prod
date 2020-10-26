@@ -1,5 +1,4 @@
 FROM ruby:2.6.3
-MAINTAINER Anonoz <honsiongchs@gmail.com>
 RUN mkdir -p /app
 WORKDIR /app
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs libgmp3-dev
