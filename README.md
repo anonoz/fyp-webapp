@@ -21,6 +21,7 @@ I have already pushed the dependency images to Docker Hub. If you have Docker En
 
 # Run these once (or everytime you git pull this codebase)
 $ docker-compose build
+$ docker-compose run web bundle install -j4
 $ docker-compose run web bundle exec rails db:migrate
 
 # Then run this everytime you wanna play with it
